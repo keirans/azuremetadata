@@ -1,6 +1,6 @@
 {
   "name": "keirans-azuremetadata",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "keirans",
   "summary": "This Puppet module exposes the Azure instance metadata as facts",
   "license": "Apache-2.0",
@@ -8,6 +8,9 @@
   "project_page": "https://github.com/keirans/azuremetadata",
   "issues_url": "https://github.com/keirans/azuremetadata/issues",
   "dependencies": [ ],
-  "data_provider": null
+  "data_provider": null,
+  "operatingsystem_support": [
+    { "operatingsystem": "RedHat" },
+    { "operatingsystem": "Windows" }
+  ]
 }
-
