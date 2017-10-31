@@ -12,14 +12,22 @@
 require 'open-uri'
 require 'json'
 
-Facter.add(:az_metadata) do
+url_metadata = 'http://169.254.169.254/metadata/instance?api-version=2017-08-01'
+metadataraw = open(url_metadata, 'Metadata' => 'true', proxy: false).read
+metadata = JSON.parse(metadataraw)
+
+Facter.add(:compute) do
   confine virtual: 'hyperv'
   setcode do
-    url_metadata = 'http://169.254.169.254/metadata/instance?api-version=2017-08-01'
-    metadataraw = open(url_metadata, 'Metadata' => 'true', proxy: false).read
-    metadata = JSON.parse(metadataraw)
     tags = metadata['compute']['tags'].split(';')
     metadata['compute']['tags'] = Hash[tags.map { |tag| tag.split(':') }]
-    metadata
+    metadata['compute']
+  end
+end
+
+Facter.add(:network) do
+  confine virtual: 'hyperv'
+  setcode do
+    metadata['network']
   end
 end
