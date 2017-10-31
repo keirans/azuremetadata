@@ -12,24 +12,19 @@
 require 'open-uri'
 require 'json'
 
-Facter.add(:compute) do
-  confine virtual: 'hyperv'
-  setcode do
-    url_metadata = 'http://169.254.169.254/metadata/instance?api-version=2017-08-01'
-    metadataraw = open(url_metadata, 'Metadata' => 'true', proxy: false).read
-    metadata = JSON.parse(metadataraw)
-    tags = metadata['compute']['tags'].split(';')
-    metadata['compute']['tags'] = Hash[tags.map { |tag| tag.split(':') }]
-    metadata['compute']
-  end
+begin
+  url_metadata = 'http://169.254.169.254/metadata/instance?api-version=2017-08-01'
+  metadataraw = open(url_metadata, 'Metadata' => 'true', proxy: false).read
+  metadata = JSON.parse(metadataraw)
+rescue
+  debug_msg("This is not an Azure instance or unable to contact the Azure instance-data web server.")
 end
 
-Facter.add(:network) do
+Facter.add(:az_metadata) do
   confine virtual: 'hyperv'
   setcode do
-    url_metadata = 'http://169.254.169.254/metadata/instance?api-version=2017-08-01'
-    metadataraw = open(url_metadata, 'Metadata' => 'true', proxy: false).read
-    metadata = JSON.parse(metadataraw)
-    metadata['network']
+    tags = metadata['compute']['tags'].split(';')
+    metadata['compute']['tags'] = Hash[tags.map { |tag| tag.split(':') }]
+    metadata
   end
 end
