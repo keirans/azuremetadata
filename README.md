@@ -33,11 +33,11 @@ Puppetfile entries
     # Directly from Git
     mod 'azuremetadata',
         :git => 'https://github.com/keirans/azuremetadata.git',
-        :tag => '0.1.0'
+        :tag => '0.1.2'
 
     
     # Directly from the forge
-    mod 'keirans-azuremetadata', '0.1.0'
+    mod 'keirans-azuremetadata', '0.1.2'
 
 
 Role / Profile inclusion
@@ -57,42 +57,42 @@ Returning the full set of metadata from Facter on Windows
 
     PS> facter az_metadata
     {
-      compute => {
-        location => "australiasoutheast",
-        name => "Windows2016host",
-        offer => "WindowsServer",
-        osType => "Windows",
-        platformFaultDomain => "0",
-        platformUpdateDomain => "0",
-        publisher => "MicrosoftWindowsServer",
-        sku => "2016-Datacenter",
-        version => "2016.127.20170510",
-        vmId => "c9c75323-ec40-4646-969d-9d5903a3af75",
-        vmSize => "Standard_DS1_v2"
+      "compute" : {
+        "tags" : {
+          "role" : "puppet_master"
+        },
+        "resourceGroupName" : "puppet_master",
+        "publisher" : "RedHat",
+        "offer" : "RHEL",
+        "name" : "deadly-eel",
+        "platformUpdateDomain" : "0",
+        "placementGroupId" : "",
+        "sku" : "7.3",
+        "vmId" : "3cf6ae21-52df-4cf9-b191-722f68a08584",
+        "vmSize" : "Standard_DS3_v2",
+        "platformFaultDomain" : "0",
+        "version" : "7.3.2017090723",
+        "location" : "northeurope",
+        "osType" : "Linux",
+        "subscriptionId" : "e1bdf3ce-0d46-4772-a55d-b87afb8e6fba"
       },
-      network => {
-        interface => [
-          {
-            ipv4 => {
-              ipAddress => [
-                {
-                  privateIpAddress => "10.1.0.4",
-                  publicIpAddress => "52.255.54.128"
-                }
-              ],
-              subnet => [
-                {
-                  address => "10.1.0.0",
-                  prefix => "24"
-                }
-              ]
-            },
-            ipv6 => {
-              ipAddress => []
-            },
-            macAddress => "000D3AE0EEFA"
-          }
-        ]
+      "network" : {
+        "interface" : [ {
+          "ipv4" : {
+            "subnet" : [ {
+              "prefix" : "24",
+              "address" : "10.0.0.0"
+            } ],
+            "ipAddress" : [ {
+              "publicIpAddress" : "62.64.19.07",
+              "privateIpAddress" : "10.0.0.4"
+            } ]
+          },
+          "ipv6" : {
+            "ipAddress" : [ ]
+          },
+          "macAddress" : "000D3AB56E12"
+        } ]
       }
     }
 
@@ -117,12 +117,10 @@ The main challenge here is that the cloud fact would help more effectively doesn
 This is issue is tracked in JIRA: 
 * [FACT-1441 - Add "cloud" fact that identifies Azure](https://tickets.puppetlabs.com/browse/FACT-1441)
 
-### API version pinned to 2017-04-02
-Version 0.1.0 is currently using API version 2017-04-02, I'll update this as new versions become available and bump the module version accordingly.
+### API version pinned to 2017-08-01
+Version 0.1.2 is currently using API version 2017-08-01, I'll update this as new versions become available and bump the module version accordingly.
 
 ## Development
 Happy to accept pull requests, I'd expect this to end up in Facter Core at some time in the future, then this can be deprecated.
 Please do vote for this JIRA for its addition: 
 * [FACT-1383 - Azure Instance Metadata ](https://tickets.puppetlabs.com/browse/FACT-1383)
-
-
