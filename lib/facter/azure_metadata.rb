@@ -17,7 +17,7 @@ begin
   metadataraw = open(url_metadata, 'Metadata' => 'true', proxy: false).read
   metadata = JSON.parse(metadataraw)
 rescue
-  debug_msg("This is not an Azure instance or unable to contact the Azure instance-data web server.")
+  puts "This is not an Azure instance or unable to contact the Azure instance-data web server."
 end
 
 Facter.add(:az_metadata) do
