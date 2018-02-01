@@ -33,11 +33,11 @@ Puppetfile entries
     # Directly from Git
     mod 'azuremetadata',
         :git => 'https://github.com/keirans/azuremetadata.git',
-        :tag => '0.1.2'
+        :tag => '0.1.3'
 
     
     # Directly from the forge
-    mod 'keirans-azuremetadata', '0.1.2'
+    mod 'keirans-azuremetadata', '0.1.3'
 
 
 Role / Profile inclusion
