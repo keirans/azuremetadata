@@ -18,7 +18,7 @@ begin
   metadata = JSON.parse(metadataraw)
 
   Facter.add(:az_metadata) do
-    confine virtual: 'hyperv'
+    confine :virtual => 'hyperv'
     setcode do
       tags = metadata['compute']['tags'].split(';')
       metadata['compute']['tags'] = Hash[tags.map { |tag| tag.split(':', 2) }]
