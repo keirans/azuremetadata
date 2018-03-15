@@ -1,6 +1,6 @@
 {
   "name": "keirans-azuremetadata",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "keirans",
   "summary": "This Puppet module exposes the Azure instance metadata as facts",
   "license": "Apache-2.0",

@@ -16,7 +16,11 @@ To help with further automation, this modules exposes the Azure instance metadat
 If you would like to see this end up in Facter Core, please do vote for the JIRA below:
 * [FACT-1383 - Azure Instance Metadata ](https://tickets.puppetlabs.com/browse/FACT-1383)
 
-This has been tested with Puppet Enterprise 2017.2 on Windows 2016 and RHEL 7, however it should work on any platform that has a modern Ruby with open-uri and JSON support.
+This has been tested with Puppet Enterprise 2017.3 on Windows 2016 and RHEL 7, however it should work on any platform that has a modern Ruby with open-uri and JSON support.
+
+This module is part of a larger part of Puppet and Azure work that I presented at Puppetconf 2017.
+
+* [You can see the presentation video here.](https://www.youtube.com/watch?v=tbWeYvOHvJE)
 
 ## Setup
 
@@ -33,11 +37,11 @@ Puppetfile entries
     # Directly from Git
     mod 'azuremetadata',
         :git => 'https://github.com/keirans/azuremetadata.git',
-        :tag => '0.1.4'
+        :tag => '0.1.5'
 
     
     # Directly from the forge
-    mod 'keirans-azuremetadata', '0.1.4'
+    mod 'keirans-azuremetadata', '0.1.5'
 
 
 Role / Profile inclusion
@@ -56,44 +60,52 @@ Once the fact is in place, you can use Facter on your Windows and Linux nodes to
 Returning the full set of metadata from Facter on Windows
 
     PS> facter az_metadata
-    {
-      "compute" : {
-        "tags" : {
-          "role" : "puppet_master"
+        {
+        compute => {
+            location => "australiasoutheast",
+            name => "puppetdev",
+            offer => "RHEL",
+            osType => "Linux",
+            placementGroupId => "",
+            platformFaultDomain => "0",
+            platformUpdateDomain => "0",
+            publisher => "RedHat",
+            resourceGroupName => "puppetdev",
+            sku => "7-RAW",
+            subscriptionId => "0432b1d0-5e2e-4e2a-ad73-e33d0652e3f7",
+            tags => {
+                Thisisatag => "thisisatagvalue"
+            },
+            version => "7.4.2018010506",
+            vmId => "d8dbecbc-7073-42fe-a9f0-3289b4f2f8f1",
+            vmScaleSetName => "",
+            vmSize => "Standard_D2s_v3",
+            zone => ""
         },
-        "resourceGroupName" : "puppet_master",
-        "publisher" : "RedHat",
-        "offer" : "RHEL",
-        "name" : "deadly-eel",
-        "platformUpdateDomain" : "0",
-        "placementGroupId" : "",
-        "sku" : "7.3",
-        "vmId" : "3cf6ae21-52df-4cf9-b191-722f68a08584",
-        "vmSize" : "Standard_DS3_v2",
-        "platformFaultDomain" : "0",
-        "version" : "7.3.2017090723",
-        "location" : "northeurope",
-        "osType" : "Linux",
-        "subscriptionId" : "e1bdf3ce-0d46-4772-a55d-b87afb8e6fba"
-      },
-      "network" : {
-        "interface" : [ {
-          "ipv4" : {
-            "subnet" : [ {
-              "prefix" : "24",
-              "address" : "10.0.0.0"
-            } ],
-            "ipAddress" : [ {
-              "publicIpAddress" : "62.64.19.07",
-              "privateIpAddress" : "10.0.0.4"
-            } ]
-          },
-          "ipv6" : {
-            "ipAddress" : [ ]
-          },
-          "macAddress" : "000D3AB56E12"
-        } ]
-      }
+        network => {
+            interface => [
+                {
+                    ipv4 => {
+                    ipAddress => [
+                        {
+                            privateIpAddress => "10.0.2.4",
+                            publicIpAddress => "13.73.117.81"
+                        }
+                    ],
+                    subnet => [
+                        {
+                            address => "10.0.2.0",
+                            prefix => "24"
+                        }
+                    ]
+                    },
+                    ipv6 => {
+                        ipAddress => []
+                    },
+                        macAddress => "000D3AE05305"
+                }
+            ]
+        }
     }
 
 Returning individual values of the metadata from Facter on Windows
@@ -117,8 +129,8 @@ The main challenge here is that the cloud fact would help more effectively doesn
 This is issue is tracked in JIRA: 
 * [FACT-1441 - Add "cloud" fact that identifies Azure](https://tickets.puppetlabs.com/browse/FACT-1441)
 
-### API version pinned to 2017-08-01
-Version 0.1.2 is currently using API version 2017-08-01, I'll update this as new versions become available and bump the module version accordingly.
+### API version pinned to 2017-12-01
+Version 0.1.5 is currently using API version 2017-12-01, I'll update this as new versions become available and bump the module version accordingly.
 
 ## Development
 Happy to accept pull requests, I'd expect this to end up in Facter Core at some time in the future, then this can be deprecated.
