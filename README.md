@@ -122,13 +122,6 @@ You can then reference these values in your Puppet code using the facts hash suc
 
 ## Limitations
 
-### Fact containment to Azure only environments
-Currently, there is no consistent way to contain the fact to Azure public cloud environments only, as such, the fact is only exposed when the virtual fact is of value  hyperv, however, if you are using both hyperv and azure environments this may cause some issues for you as the API query will time out.
-
-The main challenge here is that the cloud fact would help more effectively doesnt support anything but Linux right now. 
-This is issue is tracked in JIRA: 
-* [FACT-1441 - Add "cloud" fact that identifies Azure](https://tickets.puppetlabs.com/browse/FACT-1441)
-
 ### API version pinned to 2017-12-01
 Version 0.1.5 is currently using API version 2017-12-01, I'll update this as new versions become available and bump the module version accordingly.
 
