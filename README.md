@@ -29,7 +29,7 @@ This module deploys a single Ruby file that queries and exposes the Azure metada
 
 ### Setup Requirements
 
-Include the module in your Puppetfile and include it in your roles / profiles and  factsync will do the rest for you.
+Include the module in your Puppetfile and let pluginsync do the rest for you.
 
 Puppetfile entries
 
@@ -42,14 +42,6 @@ Puppetfile entries
     
     # Directly from the forge
     mod 'keirans-azuremetadata', '0.1.6'
-
-
-Role / Profile inclusion
-
-
-
-    include azuremetadata
-    
 
 
 ## Usage
