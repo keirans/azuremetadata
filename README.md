@@ -16,7 +16,7 @@ To help with further automation, this modules exposes the Azure instance metadat
 If you would like to see this end up in Facter Core, please do vote for the JIRA below:
 * [FACT-1383 - Azure Instance Metadata ](https://tickets.puppetlabs.com/browse/FACT-1383)
 
-This has been tested with Puppet Enterprise 2017.3 on Windows 2016 and RHEL 7, however it should work on any platform that has a modern Ruby with open-uri and JSON support.
+This has been tested with Puppet Enterprise 2018.1 on Windows 2016 and RHEL 7, however it should work on any platform that has a modern Ruby with open-uri and JSON support.
 
 This module is part of a larger part of Puppet and Azure work that I presented at Puppetconf 2017.
 
@@ -37,11 +37,11 @@ Puppetfile entries
     # Directly from Git
     mod 'azuremetadata',
         :git => 'https://github.com/keirans/azuremetadata.git',
-        :tag => '0.1.7'
+        :tag => '0.1.8'
 
     
     # Directly from the forge
-    mod 'keirans-azuremetadata', '0.1.7'
+    mod 'keirans-azuremetadata', '0.1.8'
 
 
 ## Usage
@@ -50,55 +50,56 @@ Once the fact is in place, you can use Facter on your Windows and Linux nodes to
 
 
 Returning the full set of metadata from Facter on Windows
-
-    PS> facter az_metadata
-        {
-        compute => {
-            location => "australiasoutheast",
-            name => "puppetdev",
-            offer => "RHEL",
-            osType => "Linux",
-            placementGroupId => "",
-            platformFaultDomain => "0",
-            platformUpdateDomain => "0",
-            publisher => "RedHat",
-            resourceGroupName => "puppetdev",
-            sku => "7-RAW",
-            subscriptionId => "0432b1d0-5e2e-4e2a-ad73-e33d0652e3f7",
-            tags => {
-                Thisisatag => "thisisatagvalue"
-            },
-            version => "7.4.2018010506",
-            vmId => "d8dbecbc-7073-42fe-a9f0-3289b4f2f8f1",
-            vmScaleSetName => "",
-            vmSize => "Standard_D2s_v3",
-            zone => ""
+```
+PS> facter az_metadata
+{
+  compute => {
+    location => "australiasoutheast",
+    name => "win2016",
+    offer => "WindowsServer",
+    osType => "Windows",
+    placementGroupId => "",
+    platformFaultDomain => "0",
+    platformUpdateDomain => "0",
+    publisher => "MicrosoftWindowsServer",
+    resourceGroupName => "puppettesting",
+    sku => "2016-Datacenter",
+    subscriptionId => "123451d0-122e-4e2a-ad73-e33d0652e3f7",
+    tags => {
+      tagname => "tagvalue"
+    },
+    version => "2016.127.20180412",
+    vmId => "38499d6e-45bd-1234-1234-1c1f6c1d439e",
+    vmScaleSetName => "",
+    vmSize => "Standard_B2s",
+    zone => ""
+  },
+  network => {
+    interface => [
+      {
+        ipv4 => {
+          ipAddress => [
+            {
+              privateIpAddress => "10.3.1.4",
+              publicIpAddress => "52.200.212.194"
+            }
+          ],
+          subnet => [
+            {
+              address => "10.3.1.0",
+              prefix => "24"
+            }
+          ]
         },
-        network => {
-            interface => [
-                {
-                    ipv4 => {
-                    ipAddress => [
-                        {
-                            privateIpAddress => "10.0.2.4",
-                            publicIpAddress => "13.73.117.81"
-                        }
-                    ],
-                    subnet => [
-                        {
-                            address => "10.0.2.0",
-                            prefix => "24"
-                        }
-                    ]
-                    },
-                    ipv6 => {
-                        ipAddress => []
-                    },
-                        macAddress => "000D3AE05305"
-                }
-            ]
-        }
-    }
+        ipv6 => {
+          ipAddress => []
+        },
+        macAddress => "000D2AE0FC69"
+      }
+    ]
+  }
+}
+```
 
 Returning individual values of the metadata from Facter on Windows
 
@@ -121,8 +122,8 @@ The main challenge here is that the cloud fact would help more effectively doesn
 This is issue is tracked in JIRA: 
 * [FACT-1441 - Add "cloud" fact that identifies Azure](https://tickets.puppetlabs.com/browse/FACT-1441)
 
-### API version pinned to 2017-12-01
-Version 0.1.5 is currently using API version 2017-12-01, I'll update this as new versions become available and bump the module version accordingly.
+### API version pinned to 2018-02-01
+Version 0.1.8 is currently using API version 2018-02-01, I'll update this as new versions become available and bump the module version accordingly.
 
 ## Development
 Happy to accept pull requests, I'd expect this to end up in Facter Core at some time in the future, then this can be deprecated.
