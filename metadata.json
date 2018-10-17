@@ -1,6 +1,6 @@
 {
   "name": "keirans-azuremetadata",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": "keirans",
   "summary": "This Puppet module exposes the Azure instance metadata as facts",
   "license": "Apache-2.0",
@@ -21,7 +21,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.7.0 < 6.0.0"
+      "version_requirement": ">= 4.7.0 < 7.0.0"
     }
   ],
   "pdk-version": "1.4.1",
