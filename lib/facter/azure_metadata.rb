@@ -14,7 +14,7 @@ require 'json'
 
 begin
   Facter.add(:az_metadata) do
-    confine :virtual => 'hyperv'
+    confine Facter::value(:cloud)['provider'] => 'azure'
     setcode do
       url_metadata = 'http://169.254.169.254/metadata/instance?api-version=2020-06-01'
       metadataraw = open(url_metadata, 'Metadata' => 'true', 'User-Agent' => 'Puppet', proxy: false).read
