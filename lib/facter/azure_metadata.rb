@@ -16,7 +16,7 @@ begin
   Facter.add(:az_metadata) do
     confine :virtual => 'hyperv'
     setcode do
-      url_metadata = 'http://169.254.169.254/metadata/instance?api-version=2018-04-02'
+      url_metadata = 'http://169.254.169.254/metadata/instance?api-version=2020-06-01'
       metadataraw = open(url_metadata, 'Metadata' => 'true', 'User-Agent' => 'Puppet', proxy: false).read
       metadata = JSON.parse(metadataraw)
       tags = metadata['compute']['tags'].split(';')
