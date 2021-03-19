@@ -1,4 +1,18 @@
-# azuremetadata
+# azuremetadata 
+
+## Deprecation Announcement  - Functionality now part of Facter and Puppet Enterprise
+
+After over 20k module downloads from the Forge and much wider use on internal environments I am happy to announce that Facter 4.0.52 has now introduced the following enhancements that now makes this module obsolete for modern Puppet environments.
+
+* Azure metadata fact. This release adds the az_metadata fact which provides information on Azure virtual machine instances. 
+
+* Azure identification fact. This release adds the cloud.provider fact for Azure identification on Linux and Windows platforms. 
+
+You can find more information about this from the following Facter PR's
+* [(FACT-1847) Fix cloud fact implementation for Azure](https://github.com/puppetlabs/facter/pull/2302)
+* [(FACT-1383) Add Azure instance metadata fact ](https://github.com/puppetlabs/facter/pull/2298)
+
+As such, you should look to transition off this module and leverage the native functionality provided from Facter, and as a result, I'll be no longer actively developing this module. I'll continue to keep an eye on PR's to help those on legacy versions however this will be done at a best effort level only.
 
 #### Table of Contents
 
@@ -203,9 +217,5 @@ testtag1:thisisavalue1;testtag:2:thisisavalue2
 ```
 
 ## Development
-I'm no longer actively using Azure anymore, so updates can be a bit delayed, however I'm still Happy to accept pull requests, if you could make them easier for me to merge, that would be amazing, specifically ensuring that fixes bump the version number, update the metadata file and also the README so i don't have to. :) :) :)
 
-I'd expect this to end up in Facter Core at some time in the future, then this can be deprecated.
-
-Please do vote for this JIRA for its addition: 
-* [FACT-1383 - Azure Instance Metadata ](https://tickets.puppetlabs.com/browse/FACT-1383)
+Please see the Deprecation Announcement above.
